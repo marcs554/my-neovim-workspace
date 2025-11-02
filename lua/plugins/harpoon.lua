@@ -35,5 +35,12 @@ return {
 			{ desc = "Open harpoon window" })
 		vim.keymap.set("n", "<C-p>", function() harpoon:list():prev() end)
 		vim.keymap.set("n", "<C-n>", function() harpoon:list():next() end)
+		vim.keymap.set("n", "<C-d>",
+			function()
+				local state = require("telescope.actions.state")
+				local selected_entry = state.get_selected_entry()
+
+				harpoon:list():remove(selected_entry)
+			end)
 	end
 }
