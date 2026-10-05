@@ -2,9 +2,15 @@
 
 
 ## How to use it
-1. clone repository `git clone https://github.com/marcs554/my-neovim-workspace.git`
+1. clone repository 
+```
+git clone https://github.com/marcs554/my-neovim-workspace.git
+```
 2. Have installed `git` and `neovim`
-3. Make a symbolic link so neovim can load every time is called: `ln -s /path/2/my-neovim-workspace ~/.config/nvim`
+3. Make a symbolic link so neovim can load every time is called: 
+```
+ln -s /path/2/my-neovim-workspace ~/.config/nvim
+```
 
 
 ## Cheatsheet
