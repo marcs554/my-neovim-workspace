@@ -56,7 +56,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		map('n', '<F4>', vim.lsp.buf.code_action)
 
 		-- Put near your LSP on_attach
-		local excluded_filetypes = { php = true }
+		local excluded_filetypes = {
+			php = true,
+			python = true,
+			rust = true,
+		}
 
 		-- Auto-format on save (only if server can't do WillSaveWaitUntil)
 		if not client:supports_method('textDocument/willSaveWaitUntil')
@@ -76,7 +80,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- 5) Define the Lua language server config (no mason/lspconfig)
 -- See :help lsp-new-config and :help vim.lsp.config()
--- local caps = require("cmp_nvim_lsp").default_capabilities()
+local caps = require('blink.cmp').get_lsp_capabilities()
 vim.lsp.config['luals'] = {
 	cmd = { 'lua-language-server' },
 	filetypes = { 'lua' },
@@ -122,6 +126,7 @@ vim.lsp.config['clangd'] = {
 
 
 vim.lsp.rust_analyzer = {
+	capabilities = caps,
 	settings = {
 		['rust-analyzer'] = {
 			assist = {
@@ -154,6 +159,28 @@ vim.lsp.rust_analyzer = {
 }
 
 
+vim.lsp.config["ty"] = {
+	cmd = { "ty", "server" },
+	filetypes = { "python" },
+	root_markers = { "ty.toml", "pyproject.toml", ".git" },
+	capabilities = caps,
+	settings = {
+
+		ty = {
+			diagnosticMode = "workspace",
+
+			inlayHints = {
+				variableTypes = true,
+				callArgumentNames = true,
+			},
+			completions = {
+				autoImport = true,
+			},
+		},
+	},
+}
+
 vim.lsp.enable('luals')
 vim.lsp.enable('clangd')
 vim.lsp.enable('rust_analyzer')
+vim.lsp.enable('ty')
